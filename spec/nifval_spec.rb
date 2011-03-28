@@ -18,49 +18,65 @@ describe NifVal do
     test.valid?.should == ok
   end
 
-  # Random NIFs
-  it "should be valid" do
-    nif_validity "00000000T", true
+  # Correct NIFs
+  context "when we check valid NIFs" do
+    it "should return OK" do
+      nif_validity "00000000T", true
+    end
   end
 
-  it "should be valid" do
-    nif_validity "01230123Z", true
+  # Invalid NIFs
+  context "when we check invalid NIFs" do
+    it "should return ERROR" do
+      nif_validity "A2345678C", false
+    end
   end
 
-  # Random CIFs
-  it "should be valid" do
-    nif_validity "A12345674", true
+  # Correct CIFs
+  context "when we check valid CIFs" do
+    it "should return OK" do
+      nif_validity "A12345674", true
+    end
   end
 
-  it "should be valid" do
-    nif_validity "W98765431", true
+  # Invalid CIFs
+  context "when we check invalid CIFs" do
+    it "should return ERROR" do
+      nif_validity "12345678T", false
+    end
   end
 
-  # Random NIEs
-  it "should be valid" do
-    nif_validity "X1230123Z", true
+  # Correct NIEs
+  context "when we check valid NIEs" do
+    it "should return OK" do
+      nif_validity "X1230123Z", true
+    end
   end
 
-  it "should be valid" do
-    nif_validity "Z0000000M", true
+  # Incorrect NIEs
+  context "when we check invalid NIEs" do
+    it "should return ERROR" do
+      nif_validity "X1230123F", false
+    end
   end
 
-  # Invalid values
-  it "should not be valid" do
-    nif_validity "A2345678C", false
-  end
+  # Bad format
+  context "when we check for badly-formatted strings" do
+    it "should return ERROR" do
+      nif_validity nil, false
+    end
 
-  it "should not be valid" do
-    nif_validity nil, false
-  end
+    it "should return ERROR" do
+      nif_validity "cucamonga", false
+    end
 
-  it "should not be valid" do
-    nif_validity "cucamonga", false
-  end
+    it "should return ERROR" do
+      nif_validity "0000 0000 T", false
+    end
 
-  it "should not be valid" do
-    nif_validity "a b 1 5", false
+    it "should return ERROR" do
+      nif_validity "123A123AA", false
+    end
   end
-
 
 end
