@@ -4,6 +4,14 @@ require "active_model"
 
 module NifVal
   class NifValidator < ActiveModel::EachValidator
+    def validate_each(record, attribute, value)
+      if !is_valid_nif value
+        record.errors[attribute] << "ERROR!"
+      end
+    end
+
+    private
+
     def is_valid_nif nif
       # NIF not provided
       return false if nif.nil?
@@ -43,13 +51,7 @@ module NifVal
         end
       end
     end
-
-    def validate_each(record, attribute, value)
-      if !is_valid_nif value
-        record.errors[attribute] << "ERROR!"
-      end
-    end
   end
 end
 
-ActiveModel::Validations.__send__(:include, NifVal)
+ActiveModel::Validations.send(:include, NifVal)
