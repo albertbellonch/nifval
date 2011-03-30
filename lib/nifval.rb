@@ -18,9 +18,9 @@ module NifVal
 
       # Format
       return false if
-        !nif.match(/[A-Z]{1}\d{7}[A-Z0-9]{1}/) && !nif.match(/[0-9]{8}[A-Z]{1}/)
+        !nif.match(/^[A-Z]{1}\d{7}[A-Z0-9]{1}$/) && !nif.match(/^[0-9]{8}[A-Z]{1}$/)
 
-      if nif.match(/[0-9]{8}[A-Z]{1}/)
+      if nif.match(/^[0-9]{8}[A-Z]{1}$/)
         # Standard NIF
         nif[8] == "TRWAGMYFPDXBNJZSQVHLCKE"[nif[0..7].to_i % 23]
       else

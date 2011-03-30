@@ -77,6 +77,10 @@ describe NifVal do
     it "should return ERROR" do
       nif_validity "123A123AA", false
     end
+
+    it "should return ERROR" do
+      nif_validity "123456753215X1230123Z", false
+    end
   end
 
 end
