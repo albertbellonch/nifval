@@ -1,12 +1,12 @@
+# encoding: utf-8
 # Adapted from http://compartecodigo.com/javascript/validar-nif-cif-nie-segun-ley-vigente-31.html
-
 require "active_model"
 
 module NifVal
   class NifValidator < ActiveModel::EachValidator
     def validate_each(record, attribute, value)
       if !is_valid_nif value
-        record.errors[attribute] << "NIF/CIF/NIE no válido"
+        record.errors.add(attribute, "NIF/NIE Inválido")
       end
     end
 
