@@ -53,7 +53,11 @@ module NifVal
     end
 
     def ival v
-      RUBY_VERSION<="1.8.7" ? (v - 48) : v.to_i
+      if Gem::Version.new(RUBY_VERSION.dup) >= Gem::Version.new("1.9")
+        v.to_i
+      else
+        v-48
+      end
     end
   end
 end
