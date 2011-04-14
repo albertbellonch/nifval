@@ -28,7 +28,7 @@ describe NifVal do
   # Invalid NIFs
   context "when we check invalid NIFs" do
     it "should return ERROR" do
-      nif_validity "A2345678C", false
+      nif_validity "12345678T", false
     end
   end
 
@@ -42,7 +42,7 @@ describe NifVal do
   # Invalid CIFs
   context "when we check invalid CIFs" do
     it "should return ERROR" do
-      nif_validity "12345678T", false
+      nif_validity "A2345678C", false
     end
   end
 

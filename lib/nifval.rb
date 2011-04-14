@@ -25,15 +25,15 @@ module NifVal
         nif[8] == "TRWAGMYFPDXBNJZSQVHLCKE"[nif[0..7].to_i % 23]
       else
         # CIF algorithm
-        sum = nif[2].to_i-48 + nif[4].to_i-48 + nif[6].to_i-48
+        sum = ival(nif[2]) + ival(nif[4]) + ival(nif[6])
         [1,3,5,7].each do |i|
-          t = (2*(nif[i].to_i-48)).to_s
-          t1 = t[0].to_i-48
-          t2 = t[1].nil? ? 0 : t[1].to_i-48
+          t = (2*(ival(nif[i]))).to_s
+          t1 = ival(t[0])
+          t2 = t[1].nil? ? 0 : ival(t[1])
           sum += t1+t2
         end
         sumstr = sum.to_s
-        n = 10 - (sumstr[sumstr.length-1].to_i-48)
+        n = 10 - ival(sumstr[sumstr.length-1])
 
         if nif.match(/^[KLM]{1}/)
           # Special NIFs (as CIFs)
@@ -41,7 +41,7 @@ module NifVal
         elsif nif.match(/^[ABCDEFGHJNPQRSUVW]{1}/)
           # CIFs
           nstr = n.to_s
-          (nif[8] == (64+n).chr) || (nif[8] == nstr[nstr.length-1])
+          (ival(nif[8]) == (64+n).chr) || (nif[8] == nstr[nstr.length-1])
         elsif nif.match(/^[XYZ]{1}/)
           # NIE
           niff = nif.gsub("X","0").gsub("Y","1").gsub("Z","2")
@@ -50,6 +50,10 @@ module NifVal
           false
         end
       end
+    end
+
+    def ival v
+      RUBY_VERSION<="1.8.7" ? (v - 48) : v.to_i
     end
   end
 end
