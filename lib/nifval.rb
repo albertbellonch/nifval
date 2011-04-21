@@ -6,7 +6,7 @@ module Nifval
   class NifValidator < ActiveModel::EachValidator
     def validate_each(record, attribute, value)
       if !is_valid_nif value
-        record.errors.add(attribute, t("nifval.wrong"))
+        record.errors.add(attribute, I18n.t("nifval.wrong"))
       end
     end
 
