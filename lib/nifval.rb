@@ -2,11 +2,11 @@
 # Adapted from http://compartecodigo.com/javascript/validar-nif-cif-nie-segun-ley-vigente-31.html
 require "active_model"
 
-module NifVal
+module Nifval
   class NifValidator < ActiveModel::EachValidator
     def validate_each(record, attribute, value)
       if !is_valid_nif value
-        record.errors.add(attribute, "NIF/NIE Inválido")
+        record.errors.add(attribute, t("nifval.wrong"))
       end
     end
 
@@ -62,4 +62,4 @@ module NifVal
   end
 end
 
-ActiveModel::Validations.send(:include, NifVal)
+ActiveModel::Validations.send(:include, Nifval)

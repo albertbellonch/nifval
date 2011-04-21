@@ -44,6 +44,12 @@ Simply add this gem to your Gemfile...
 
 Note: It appears that if we load <b>NifVal</b> after <b>Devise</b>, <b>Nifval</b> won't work. In order to make everything work, simply add <b>Nifval</b> before <b>Devise</b> in the Gemfile.
 
+Then run the generator in order to install the I18n template:
+
+    rails generate nifval:install
+
+And you are done!
+
 Documentation
 -------------
 
