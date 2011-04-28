@@ -1,13 +1,17 @@
 = form_for(Nif.new) do |f|
-  .field
-    = f.label :value
-    %br/
-    = f.text_field :value
-  .actions
-    = link_to "Check", "javascript:testNif()"
+  = f.label :value
+  = f.text_field :value
+  %span#result
+    Not valid
 
 :javascript
-  function testNif(){
-    nif = $("#nif_value").val();
-    alert("Result: " + (nifval(nif)?"OK":"Error"));
-  }
+  $("form").submit(function(){
+    return false;
+  });
+
+  $("#nif_value").bind("keyup mouseup change", function(){
+    var nif = $("#nif_value").val();
+    $("#result").html(nifval(nif)?"Valid":"Not valid");
+  });
+
+  $("#nif_value").focus();
