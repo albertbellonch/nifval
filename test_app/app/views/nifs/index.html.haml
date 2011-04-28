@@ -1,0 +1,15 @@
+%h1 Listing nifs
+%table
+  %tr
+    %th Value
+    %th
+    %th
+    %th
+  - @nifs.each do |nif|
+    %tr
+      %td= nif.value
+      %td= link_to 'Show', nif
+      %td= link_to 'Edit', edit_nif_path(nif)
+      %td= link_to 'Destroy', nif, :confirm => 'Are you sure?', :method => :delete
+%br/
+= link_to 'New Nif', new_nif_path

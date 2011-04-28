@@ -1,0 +1,15 @@
+= form_for(@nif) do |f|
+  - if @nif.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@nif.errors.count, "error")
+        prohibited this nif from being saved:
+      %ul
+        - @nif.errors.full_messages.each do |msg|
+          %li= msg
+  .field
+    = f.label :value
+    %br/
+    = f.text_field :value
+  .actions
+    = f.submit

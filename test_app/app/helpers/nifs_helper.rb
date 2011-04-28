@@ -1,0 +1,2 @@
+module NifsHelper
+end

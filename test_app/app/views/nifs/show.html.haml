@@ -1,0 +1,7 @@
+%p#notice= notice
+%p
+  %b Value:
+  = @nif.value
+= link_to 'Edit', edit_nif_path(@nif)
+|
+= link_to 'Back', nifs_path
