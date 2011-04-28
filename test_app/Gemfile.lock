@@ -1,6 +1,6 @@
 GIT
-  remote: git@github.com:albertbellonch/nifval.git
-  revision: c5093d73d8cc34420d92b16c94f978b87c209fbc
+  remote: git://github.com/albertbellonch/nifval.git
+  revision: e8b4fd5f656741fe8af761f4ef0b61d02ce6d312
   specs:
     nifval (0.1.4)
       activemodel
