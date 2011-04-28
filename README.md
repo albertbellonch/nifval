@@ -74,7 +74,7 @@ boolean.
 
 You can see both situations via the test application included in this
 gem. This test app is also available at
-[http://nifval-test.heroku.com](http://nifval-test.heroku.com).
+[http://nifvalapp.heroku.com](http://nifvalapp.heroku.com).
 
 Documentation
 -------------
