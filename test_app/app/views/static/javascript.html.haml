@@ -1,0 +1,13 @@
+= form_for(Nif.new) do |f|
+  .field
+    = f.label :value
+    %br/
+    = f.text_field :value
+  .actions
+    = link_to "Check", "javascript:testNif()"
+
+:javascript
+  function testNif(){
+    nif = $("#nif_value").val();
+    alert("Result: " + (nifval(nif)?"OK":"Error"));
+  }
