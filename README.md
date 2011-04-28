@@ -7,8 +7,31 @@ Description
 NifVal is a simple gem which adds a Spanish NIF/NIE/CIF validator to
 ActiveModel. You simply have to validate ":nif" for "true" for a specific field.
 
+Installation
+------------
+
+Simply add this gem to your Gemfile:
+
+    gem "nifval"
+
+and execute <i>bundle</i>.
+
+Note: It appears that if we load <b>NifVal</b> after <b>Devise</b>, <b>Nifval</b> won't work. In order to make everything work, simply add <b>Nifval</b> before <b>Devise</b> in the Gemfile.
+
+Then run the generator in order to install the I18n template:
+
+    rails generate nifval:install
+
+If you want to validate a Nif via Javascript, you can also add:
+
+    rails generate nifval:javascript
+
+And you are done!
+
 Usage
 -----
+
+### On your model ###
 
 Let's see an example:
 
@@ -31,24 +54,27 @@ And an unsuccessful one (mistaken control digit C for A2345678):
     p = Person.new("A2345678C")
     p.valid? # will return false
 
-Installation
-------------
+### Via Javascript ###
 
-Simply add this gem to your Gemfile...
+<i>Please refer to the Installation section on how to get Nifval's Javascript
+file.</i>
 
-    ...
-    gem "nifval"
-    ...
+You only have to add <i>nifval.js</i> to your application layout. Assuming the
+use of HAML:
 
-...and execute "bundle".
+    = javascript_include_tag "nifval"
 
-Note: It appears that if we load <b>NifVal</b> after <b>Devise</b>, <b>Nifval</b> won't work. In order to make everything work, simply add <b>Nifval</b> before <b>Devise</b> in the Gemfile.
+And then execute the <i>nifval(nifToCheck)</i> function, which returns a
+boolean.
 
-Then run the generator in order to install the I18n template:
+    nifval("00000000T") // returns true
+    nifval("A2345678C") // returns false
 
-    rails generate nifval:install
+### Example ###
 
-And you are done!
+You can see both situations via the test application included in this
+gem. This test app is also available at
+[http://nifval-test.heroku.com](http://nifval-test.heroku.com).
 
 Documentation
 -------------
