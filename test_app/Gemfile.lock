@@ -1,3 +1,11 @@
+GIT
+  remote: git@github.com:albertbellonch/nifval.git
+  revision: c5093d73d8cc34420d92b16c94f978b87c209fbc
+  specs:
+    nifval (0.1.4)
+      activemodel
+      i18n
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -45,9 +53,6 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
-    nifval (0.1.4)
-      activemodel
-      i18n
     polyglot (0.3.1)
     rack (1.2.2)
     rack-mount (0.6.14)
@@ -79,6 +84,6 @@ PLATFORMS
 
 DEPENDENCIES
   haml-rails
-  nifval
+  nifval!
   rails (= 3.0.7)
   sqlite3
