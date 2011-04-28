@@ -4,6 +4,6 @@ gem 'rails', '3.0.7'
 
 gem 'haml-rails'
 
-gem 'nifval', :path => ".."
+gem 'nifval', :git => 'git@github.com:albertbellonch/nifval.git'
 
 gem 'sqlite3'
