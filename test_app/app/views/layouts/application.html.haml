@@ -6,4 +6,7 @@
     = javascript_include_tag :defaults
     = csrf_meta_tag
   %body
+    #header
+      = link_to "Index", root_path
+      = link_to "Test class", nifs_path
     = yield
