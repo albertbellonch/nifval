@@ -16,6 +16,10 @@ module Nifval
       # NIF not provided
       return false if nif.nil?
 
+      # Add zeros to the left if applyable, and accept lowercase
+      nif = nif.rjust(9,'0')
+      nif = nif.upcase
+
       # Format
       return false if
         !nif.match(/^[A-Z]{1}\d{7}[A-Z0-9]{1}$/) && !nif.match(/^[0-9]{8}[A-Z]{1}$/)

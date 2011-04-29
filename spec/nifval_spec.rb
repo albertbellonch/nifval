@@ -60,6 +60,19 @@ describe Nifval do
     end
   end
 
+  # Good format
+  context "when we check alternatively-formatted strings" do
+    # Accept with length < 9
+    it "should return OK" do
+      nif_validity "T", true
+    end
+
+    # Accept lowercase
+    it "should return OK" do
+      nif_validity "00000000t", true
+    end
+  end
+
   # Bad format
   context "when we check for badly-formatted strings" do
     it "should return ERROR" do
