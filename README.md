@@ -76,6 +76,18 @@ You can see both situations via the test application included in this
 gem. This test app is also available at
 [http://nifvalapp.heroku.com](http://nifvalapp.heroku.com).
 
+Changelog
+---------
+
+- v0.1.0 First version, basic Spanish NIF validation.
+- v0.1.1 Some fixes on regexps taht would allow invalid NIFs.
+- v0.1.2 Compatible with Ruby 1.8.7 and 1.9.2.
+- v0.1.3 Adding I18n support for error messages.
+- v0.1.4 Several fixes.
+- v0.2.0 Added test app, and providing a Javascript version too.
+- v0.2.1 Accepting strings with smaller than 9 chars.
+- v0.2.2 Core refactor, thanks to @ritxi.
+
 Documentation
 -------------
 
