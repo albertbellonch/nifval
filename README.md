@@ -88,6 +88,11 @@ Changelog
 - v0.2.1 Accepting strings with smaller than 9 chars.
 - v0.2.2 Core refactor, thanks to @ritxi.
 
+Contributors
+------------
+
+Thanks to @ritxi for the refactoring in v0.2.2.
+
 Documentation
 -------------
 
