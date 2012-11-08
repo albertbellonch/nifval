@@ -2,11 +2,13 @@
 # Adapted from http://compartecodigo.com/javascript/validar-nif-cif-nie-segun-ley-vigente-31.html
 require "active_model"
 
+class MissingNifException < Exception; end
+
 module Nifval
   class NifValidator < ActiveModel::EachValidator
     def validate_each(record, attribute, value)
       if value.nil? || !Document.new(value).valid?
-        record.errors.add(attribute, I18n.t("nifval.wrong"))
+        record.errors.add(attribute, options[:message] || I18n.t("nifval.wrong"))
       end
     end
 
