@@ -67,7 +67,7 @@ module Nifval
     alias valid_standard? valid_dni?
 
     def cif_algorithm_letter
-      (64+cif_algorithm_value).chr
+      ".ABCDEFGHIJ"[cif_algorithm_value,1]
     end
     private :cif_algorithm_letter
 
