@@ -10,14 +10,7 @@ module Nifval
     end
 
     def valid?
-      case
-      when ! well_formed? then false
-      when standard? then valid_standard?
-      when special? then valid_special?
-      when cif? then valid_cif?
-      when nie? then valid_nie?
-      else false
-      end
+      valid_dni? or valid_nie? or valid_cif? or valid_special?
     end
 
     def well_formed?
