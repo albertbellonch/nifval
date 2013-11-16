@@ -28,6 +28,10 @@ describe Nifval::Nif do
     it { nif("A2345678C").should_not be_valid }
   end
 
+  context "valid 'special'" do
+    it { nif("K1234567D").should be_valid }
+  end
+
   context "valid NIEs" do
     it { nif("X1230123Z").should be_valid }
   end

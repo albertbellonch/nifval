@@ -48,23 +48,27 @@ module Nifval
     end
 
     def valid_cif?
-      nif[8,1] == cif_algorithm_letter || nif[8,1] == cif_algorithm_digit
+      last_char == cif_algorithm_letter || last_char == cif_algorithm_digit
     end
 
     def valid_nie?
       niff = nif.gsub("X","0").gsub("Y","1").gsub("Z","2")
-      nif[8] == "TRWAGMYFPDXBNJZSQVHLCKE"[niff[0..7].to_i % 23]
+      last_char == "TRWAGMYFPDXBNJZSQVHLCKE"[niff[0..7].to_i % 23,1]
     end
 
     def valid_special?
-      # FIXME: missing test case -- nif[8] returns string in 1.9, int in 1.8
-      nif[8] == cif_algorithm_letter
+      last_char == cif_algorithm_letter
     end
 
     def valid_dni?
-      nif[8] == "TRWAGMYFPDXBNJZSQVHLCKE"[nif[0..7].to_i % 23]
+      last_char == "TRWAGMYFPDXBNJZSQVHLCKE"[nif[0..7].to_i % 23,1]
     end
     alias valid_standard? valid_dni?
+
+    def last_char
+      nif[8,1]
+    end
+    private :last_char
 
     def cif_algorithm_letter
       %w[J A B C D E F G H I][cif_algorithm_value]
