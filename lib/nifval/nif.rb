@@ -67,12 +67,12 @@ module Nifval
     alias valid_standard? valid_dni?
 
     def cif_algorithm_letter
-      ".ABCDEFGHIJ"[cif_algorithm_value,1]
+      %w[J A B C D E F G H I][cif_algorithm_value]
     end
     private :cif_algorithm_letter
 
     def cif_algorithm_digit
-      (cif_algorithm_value % 10).to_s
+      cif_algorithm_value.to_s
     end
     private :cif_algorithm_digit
 
@@ -82,27 +82,16 @@ module Nifval
     private :cif_algorithm_value
 
     def calculate_cif_algorithm_value
-      # CIF algorithm
-      sum = ival(nif[2]) + ival(nif[4]) + ival(nif[6])
+      values = nif.split(//).map { |c| c.to_i }
+      sum = values[2] + values[4] + values[6]
       [1,3,5,7].each do |i|
-        t = (2*(ival(nif[i]))).to_s
-        t1 = ival(t[0])
-        t2 = t[1].nil? ? 0 : ival(t[1])
-        sum += t1+t2
+        t = 2 * values[i]
+        # t - 9 is the same as the sum of digits for t =~ 10..18
+        t = t - 9 if t > 9
+        sum += t
       end
-      sumstr = sum.to_s
-
-      (10 - ival(sumstr[sumstr.length-1]))
+      (10 - sum % 10) % 10
     end
     private :calculate_cif_algorithm_value
-
-    def ival v
-      if Gem::Version.new(RUBY_VERSION.dup) >= Gem::Version.new("1.9")
-        v.to_i
-      else
-        v-48
-      end
-    end
-    private :ival
   end
 end
