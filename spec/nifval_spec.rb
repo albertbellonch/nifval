@@ -3,7 +3,7 @@ require 'nifval/nif_validator'
 class Test
   include ActiveModel::Validations
 
-  validates :testfield, nif: true
+  validates :testfield, :nif => true
 
   attr_accessor :testfield
 
