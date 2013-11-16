@@ -1,20 +1,8 @@
-require 'nifval/nif_validator'
+require 'nifval/nif'
 
-class Test
-  include ActiveModel::Validations
-
-  validates :testfield, :nif => true
-
-  attr_accessor :testfield
-
-  def initialize testfield
-    @testfield = testfield
-  end
-end
-
-describe Nifval do
+describe Nifval::Nif do
   def nif_validity nif, ok
-    test = Test.new(nif)
+    test = Nifval::Nif.new(nif)
     test.valid?.should == ok
   end
 
