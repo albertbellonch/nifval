@@ -1,89 +1,57 @@
 require 'nifval/nif'
 
 describe Nifval::Nif do
-  def nif_validity nif, ok
-    test = Nifval::Nif.new(nif)
-    test.valid?.should == ok
+  def nif(string)
+    Nifval::Nif.new(string)
   end
 
   # Correct NIFs
   context "when we check valid NIFs" do
-    it "should return OK" do
-      nif_validity "00000000T", true
-    end
+    it { nif("00000000T").should be_valid }
   end
 
   # Invalid NIFs
   context "when we check invalid NIFs" do
-    it "should return ERROR" do
-      nif_validity "12345678T", false
-    end
+    it { nif("12345678T").should_not be_valid }
   end
 
   # Correct CIFs
   context "when we check valid CIFs" do
-    it "should return OK" do
-      nif_validity "A12345674", true
-      # Edge case: check digit is 0
-      nif_validity "A16345670", true
-    end
+    it { nif("A12345674").should be_valid }
+    # Edge case: check digit is 0
+    it { nif("A16345670").should be_valid }
   end
 
   # Invalid CIFs
   context "when we check invalid CIFs" do
-    it "should return ERROR" do
-      nif_validity "A2345678C", false
-    end
+    it { nif("A2345678C").should_not be_valid }
   end
 
   # Correct NIEs
   context "when we check valid NIEs" do
-    it "should return OK" do
-      nif_validity "X1230123Z", true
-    end
+    it { nif("X1230123Z").should be_valid }
   end
 
   # Incorrect NIEs
   context "when we check invalid NIEs" do
-    it "should return ERROR" do
-      nif_validity "X1230123F", false
-    end
+    it { nif("X1230123F").should_not be_valid }
   end
 
   # Good format
   context "when we check alternatively-formatted strings" do
     # Accept with length < 9
-    it "should return OK" do
-      nif_validity "T", true
-    end
-
+    it { nif("T").should be_valid }
     # Accept lowercase
-    it "should return OK" do
-      nif_validity "00000000t", true
-    end
+    it { nif("00000000t").should be_valid }
   end
 
   # Bad format
   context "when we check for badly-formatted strings" do
-    it "should return ERROR" do
-      nif_validity nil, false
-    end
-
-    it "should return ERROR" do
-      nif_validity "cucamonga", false
-    end
-
-    it "should return ERROR" do
-      nif_validity "0000 0000 T", false
-    end
-
-    it "should return ERROR" do
-      nif_validity "123A123AA", false
-    end
-
-    it "should return ERROR" do
-      nif_validity "123456753215X1230123Z", false
-    end
+    it { nif(nil).should_not be_valid }
+    it { nif("cucamonga").should_not be_valid }
+    it { nif("0000 0000 T").should_not be_valid }
+    it { nif("123A123AA").should_not be_valid }
+    it { nif("123456753215X1230123Z").should_not be_valid }
   end
 
 end
