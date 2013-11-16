@@ -48,20 +48,20 @@ module Nifval
     end
 
     def valid_cif?
-      last_char == cif_algorithm_letter || last_char == cif_algorithm_digit
+      cif? && (last_char == cif_algorithm_letter || last_char == cif_algorithm_digit)
     end
 
     def valid_nie?
       niff = nif.gsub("X","0").gsub("Y","1").gsub("Z","2")
-      last_char == "TRWAGMYFPDXBNJZSQVHLCKE"[niff[0..7].to_i % 23,1]
+      nie? && last_char == "TRWAGMYFPDXBNJZSQVHLCKE"[niff[0..7].to_i % 23,1]
     end
 
     def valid_special?
-      last_char == cif_algorithm_letter
+      special? && (last_char == cif_algorithm_letter || last_char == cif_algorithm_digit)
     end
 
     def valid_dni?
-      last_char == "TRWAGMYFPDXBNJZSQVHLCKE"[nif[0..7].to_i % 23,1]
+      dni? && last_char == "TRWAGMYFPDXBNJZSQVHLCKE"[nif[0..7].to_i % 23,1]
     end
     alias valid_standard? valid_dni?
 

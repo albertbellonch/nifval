@@ -5,12 +5,14 @@ describe Nifval::Nif do
     Nifval::Nif.new(string)
   end
 
-  context "valid NIFs" do
+  context "valid DNIs" do
     it { nif("00000000T").should be_valid }
+    it { nif("00000000T").should be_valid_dni }
   end
 
-  context "invalid NIFs" do
+  context "invalid DNIs" do
     it { nif("12345678T").should_not be_valid }
+    it { nif("0xxxxxxxT").should_not be_valid_dni }
   end
 
   context "valid CIFs" do
@@ -26,10 +28,20 @@ describe Nifval::Nif do
 
   context "invalid CIFs" do
     it { nif("A2345678C").should_not be_valid }
+    it { nif("02345678C").should_not be_valid_cif }
   end
 
   context "valid 'special'" do
-    it { nif("K1234567D").should be_valid }
+    it { nif("K1234567D").should be_valid_special }
+    # L -> letter or digit
+    it { nif("L1234567D").should be_valid_special }
+    it { nif("L12345674").should be_valid_special }
+  end
+
+  context "invalid special" do
+    # K -> letter
+    it { nif("K12345674").should_not be_valid_special }
+    it { nif("02345678C").should_not be_valid_special }
   end
 
   context "valid NIEs" do
@@ -38,6 +50,7 @@ describe Nifval::Nif do
 
   context "invalid NIEs" do
     it { nif("X1230123F").should_not be_valid }
+    it { nif("00000000T").should_not be_valid_nie }
   end
 
   context "alternatively-formatted strings" do
