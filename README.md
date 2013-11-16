@@ -4,8 +4,9 @@ NifVal
 Description
 -----------
 
-NifVal is a simple gem which adds a Spanish NIF/NIE/CIF validator to
-ActiveModel. You simply have to validate ":nif" for "true" for a specific field.
+NifVal provides an API to validate Spanish NIF/NIE/CIF/DNI numbers.  As a shortcut,
+it provides an ActiveModel validator. You simply have to validate `:nif` for `true`
+for a specific field.
 
 Installation
 ------------
@@ -14,11 +15,18 @@ Simply add this gem to your Gemfile:
 
     gem "nifval"
 
+If `ActiveModel` has already been loaded when the `nifval` gem is loaded (as is
+the case in a Rails app) `nifval` will automatically load the `ActiveModel`
+validator.  If you want to force loading of the `ActiveModel` validator, write
+this in your Gemfile:
+
+    gem "nifval", :require => 'nifval/activemodel'
+
 and execute <i>bundle</i>.
 
 Note: It appears that if we load <b>NifVal</b> after <b>Devise</b>, <b>Nifval</b> won't work. In order to make everything work, simply add <b>Nifval</b> before <b>Devise</b> in the Gemfile.
 
-Then run the generator in order to install the I18n template:
+In a Rails project, run the generator in order to install the I18n template:
 
     rails generate nifval:install
 
@@ -35,9 +43,8 @@ Usage
 
 Let's see an example:
 
-    class Person
+    class Person < ActiveRecord::Base
       validates :nif, :nif => true
-      attr_accessor :nif
     end
 
 Then if we create an instance and see if it is valid, the validation
@@ -46,13 +53,29 @@ will be checked.
 Let's see one example for each case.
 A successful validation (correct control digit T for 00000000):
 
-    p = Person.new("00000000T")
-    p.valid? # will return true
+    p = Person.new(nif: "00000000T")
+    p.valid? # => true
 
 And an unsuccessful one (mistaken control digit C for A2345678):
 
-    p = Person.new("A2345678C")
-    p.valid? # will return false
+    p = Person.new(nif: "A2345678C")
+    p.valid? # => false
+
+### Stand-alone validation ###
+
+While the ActiveModel validation only gives you true or false, the stand-alone validator
+has a complete API:
+
+    nif = Nifval::Nif.new("00000000T")   # => #<Nifval::Nif:0x007ff0510211a8 @nif="00000000T">
+    nif.valid?       # => true
+    nif.dni?         # => #<MatchData "00000000T">
+    nif.valid_dni?   # => true
+    nif.valid_nie?   # => nil
+    nif = Nifval::Nif.new("A2345678C")   # => #<Nifval::Nif:0x007ff05186ff30 @nif="A2345678C">
+    nif.cif?         # => nil
+    nif = Nifval::Nif.new("A23456788")   # => #<Nifval::Nif:0x007ff051814e00 @nif="A23456788">
+    nif.cif?         # => #<MatchData "A23456788">
+    nif.valid_cif?   # => false
 
 ### Via Javascript ###
 
