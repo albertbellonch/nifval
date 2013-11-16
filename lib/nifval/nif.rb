@@ -65,25 +65,23 @@ module Nifval
     end
     alias valid_standard? valid_dni?
 
+    private
+
     def last_char
       nif[8,1]
     end
-    private :last_char
 
     def cif_algorithm_letter
       %w[J A B C D E F G H I][cif_algorithm_value]
     end
-    private :cif_algorithm_letter
 
     def cif_algorithm_digit
       cif_algorithm_value.to_s
     end
-    private :cif_algorithm_digit
 
     def cif_algorithm_value
       @cif_algorithm_value ||= calculate_cif_algorithm_value
     end
-    private :cif_algorithm_value
 
     def calculate_cif_algorithm_value
       values = nif.split(//).map { |c| c.to_i }
@@ -96,6 +94,5 @@ module Nifval
       end
       (10 - sum % 10) % 10
     end
-    private :calculate_cif_algorithm_value
   end
 end
