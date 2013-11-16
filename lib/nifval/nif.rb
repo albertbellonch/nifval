@@ -5,9 +5,8 @@ module Nifval
   class Nif
     attr_accessor :nif
     def initialize(nif)
-      @nif = nif
-
-      setup
+      # Add zeros to the left if needed, and accept lowercase
+      @nif = nif.to_s.rjust(9,'0').upcase
     end
 
     def valid?
@@ -20,15 +19,6 @@ module Nifval
       else false
       end
     end
-
-    def setup
-      raise MissingNifException if nif.nil?
-
-      # Add zeros to the left if applyable, and accept lowercase
-      @nif = nif.rjust(9,'0')
-      nif.upcase!
-    end
-    private :setup
 
     def invalid_format?
       !nif.match(/^[A-Z]{1}\d{7}[A-Z0-9]{1}$/) && !nif.match(/^[0-9]{8}[A-Z]{1}$/)
