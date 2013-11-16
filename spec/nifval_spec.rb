@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'nifval/nif_validator'
 
 class Test
   include ActiveModel::Validations
