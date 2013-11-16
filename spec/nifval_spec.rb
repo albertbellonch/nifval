@@ -36,6 +36,8 @@ describe Nifval do
   context "when we check valid CIFs" do
     it "should return OK" do
       nif_validity "A12345674", true
+      # Edge case: check digit is 0
+      nif_validity "A16345670", true
     end
   end
 

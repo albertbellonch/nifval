@@ -48,8 +48,8 @@ module Nifval
     end
 
     def valid_cif?
-      nstr = cif_algorithm_value.to_s
-      (ival(nif[8]) == (64+cif_algorithm_value).chr) || (nif[8] == nstr[nstr.length-1])
+      # FIXME: ival of something will never == some character, so first half is dead code
+      ival(nif[8]) == cif_algorithm_letter || nif[8,1] == cif_algorithm_digit
     end
 
     def valid_nie?
@@ -58,13 +58,24 @@ module Nifval
     end
 
     def valid_special?
-      nif[8] == (64+cif_algorithm_value).chr
+      # FIXME: missing test case -- nif[8] returns string in 1.9, int in 1.8
+      nif[8] == cif_algorithm_letter
     end
 
     def valid_dni?
       nif[8] == "TRWAGMYFPDXBNJZSQVHLCKE"[nif[0..7].to_i % 23]
     end
     alias valid_standard? valid_dni?
+
+    def cif_algorithm_letter
+      (64+cif_algorithm_value).chr
+    end
+    private :cif_algorithm_letter
+
+    def cif_algorithm_digit
+      (cif_algorithm_value % 10).to_s
+    end
+    private :cif_algorithm_digit
 
     def cif_algorithm_value
       @cif_algorithm_value ||= calculate_cif_algorithm_value
