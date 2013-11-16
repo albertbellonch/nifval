@@ -3,6 +3,10 @@
 
 module Nifval
   class Nif
+
+    CIF_CHECK_LETTERS = "JABCDEFGHI".split('')
+    DNI_CHECK_LETTERS = "TRWAGMYFPDXBNJZSQVHLCKE".split('')
+
     attr_accessor :nif
     def initialize(nif)
       # Add zeros to the left if needed, and accept lowercase
@@ -46,7 +50,7 @@ module Nifval
 
     def valid_nie?
       niff = nif.gsub("X","0").gsub("Y","1").gsub("Z","2")
-      nie? && last_char == "TRWAGMYFPDXBNJZSQVHLCKE"[niff[0..7].to_i % 23,1]
+      nie? && last_char == DNI_CHECK_LETTERS[niff[0..7].to_i % 23]
     end
 
     def valid_special?
@@ -54,7 +58,7 @@ module Nifval
     end
 
     def valid_dni?
-      dni? && last_char == "TRWAGMYFPDXBNJZSQVHLCKE"[nif[0..7].to_i % 23,1]
+      dni? && last_char == DNI_CHECK_LETTERS[nif[0..7].to_i % 23]
     end
     alias valid_standard? valid_dni?
 
@@ -65,7 +69,7 @@ module Nifval
     end
 
     def cif_algorithm_letter
-      %w[J A B C D E F G H I][cif_algorithm_value]
+      CIF_CHECK_LETTERS[cif_algorithm_value]
     end
 
     def cif_algorithm_digit
