@@ -48,8 +48,7 @@ module Nifval
     end
 
     def valid_cif?
-      # FIXME: ival of something will never == some character, so first half is dead code
-      ival(nif[8]) == cif_algorithm_letter || nif[8,1] == cif_algorithm_digit
+      nif[8,1] == cif_algorithm_letter || nif[8,1] == cif_algorithm_digit
     end
 
     def valid_nie?

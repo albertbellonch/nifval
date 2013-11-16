@@ -17,6 +17,11 @@ describe Nifval::Nif do
     it { nif("A12345674").should be_valid }
     # Edge case: check digit is 0
     it { nif("A16345670").should be_valid }
+
+    # Using letters!
+    it { nif("Q1234567D").should be_valid }
+    # Edge case: check digit is J
+    it { nif("Q1634567J").should be_valid }
   end
 
   context "invalid CIFs" do
