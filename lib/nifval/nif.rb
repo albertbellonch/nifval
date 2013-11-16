@@ -11,7 +11,7 @@ module Nifval
 
     def valid?
       case
-      when invalid_format? then false
+      when ! well_formed? then false
       when standard? then valid_standard?
       when special? then valid_special?
       when cif? then valid_cif?
@@ -20,24 +20,31 @@ module Nifval
       end
     end
 
-    def invalid_format?
-      !nif.match(/^[A-Z]{1}\d{7}[A-Z0-9]{1}$/) && !nif.match(/^[0-9]{8}[A-Z]{1}$/)
+    def well_formed?
+      nif.match(/\A[A-Z]\d{7}[A-Z0-9]\z/) || nif.match(/\A[0-9]{8}[A-Z]\z/)
     end
 
-    def standard?
-      nif.match(/^[0-9]{8}[A-Z]{1}$/)
+    def dni?
+      nif.match(/\A[0-9]{8}[A-Z]\z/)
     end
+    alias standard? dni?
 
     def special?
-      nif.match(/^[KLM]{1}/)
+      # According to https://es.wikipedia.org/wiki/C%C3%B3digo_de_identificaci%C3%B3n_fiscal
+      # K gets letter, LM get letter or digit
+      nif.match(/\AK\d{7}[A-Z]\z/) || nif.match(/\A[LM]\d{7}[0-9A-Z]\z/)
     end
 
     def cif?
-      nif.match(/^[ABCDEFGHJNPQRSUVW]{1}/)
+      # According to https://es.wikipedia.org/wiki/C%C3%B3digo_de_identificaci%C3%B3n_fiscal
+      # QS get letter, ABEH get digit, other get letter or digit
+      nif.match(/\A[QS]\d{7}[A-Z]\z/) ||
+      nif.match(/\A[ABEH]\d{8}\z/) ||
+      nif.match(/\A[CDFGJNPRUVW]\d{7}[0-9A-Z]\z/)
     end
 
     def nie?
-      nif.match(/^[XYZ]{1}/)
+      nif.match(/\A[XYZ]\d{7}[A-Z]\z/)
     end
 
     def valid_cif?
@@ -54,9 +61,10 @@ module Nifval
       nif[8] == (64+cif_algorithm_value).chr
     end
 
-    def valid_standard?
+    def valid_dni?
       nif[8] == "TRWAGMYFPDXBNJZSQVHLCKE"[nif[0..7].to_i % 23]
     end
+    alias valid_standard? valid_dni?
 
     def cif_algorithm_value
       @cif_algorithm_value ||= calculate_cif_algorithm_value
