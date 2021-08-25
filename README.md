@@ -67,14 +67,14 @@ While the ActiveModel validation only gives you true or false, the stand-alone v
 has a complete API:
 
     nif = Nifval::Nif.new("00000000T")   # => #<Nifval::Nif:0x007ff0510211a8 @nif="00000000T">
+    nif.dni?         # => true
     nif.valid?       # => true
-    nif.dni?         # => #<MatchData "00000000T">
     nif.valid_dni?   # => true
-    nif.valid_nie?   # => nil
+    nif.valid_nie?   # => false
     nif = Nifval::Nif.new("A2345678C")   # => #<Nifval::Nif:0x007ff05186ff30 @nif="A2345678C">
-    nif.cif?         # => nil
+    nif.cif?         # => false
     nif = Nifval::Nif.new("A23456788")   # => #<Nifval::Nif:0x007ff051814e00 @nif="A23456788">
-    nif.cif?         # => #<MatchData "A23456788">
+    nif.cif?         # => true
     nif.valid_cif?   # => false
 
 ### Via Javascript ###
@@ -110,6 +110,7 @@ Changelog
 - v0.2.0 Added test app, and providing a Javascript version too.
 - v0.2.1 Accepting strings with smaller than 9 chars.
 - v0.2.2 Core refactor, thanks to @ritxi.
+- v0.3.0 Calls to methods with `?` like `#dni?` now return false or true.
 
 Contributors
 ------------
