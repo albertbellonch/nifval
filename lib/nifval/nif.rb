@@ -18,30 +18,30 @@ module Nifval
     end
 
     def well_formed?
-      nif.match(/\A[A-Z]\d{7}[A-Z0-9]\z/) || nif.match(/\A[0-9]{8}[A-Z]\z/)
+      nif.match?(/\A[A-Z]\d{7}[A-Z0-9]\z/) || nif.match?(/\A[0-9]{8}[A-Z]\z/)
     end
 
     def dni?
-      nif.match(/\A[0-9]{8}[A-Z]\z/)
+      nif.match?(/\A[0-9]{8}[A-Z]\z/)
     end
     alias standard? dni?
 
     def special?
       # According to https://es.wikipedia.org/wiki/C%C3%B3digo_de_identificaci%C3%B3n_fiscal
       # K gets letter, LM get letter or digit
-      nif.match(/\AK\d{7}[A-Z]\z/) || nif.match(/\A[LM]\d{7}[0-9A-Z]\z/)
+      nif.match?(/\AK\d{7}[A-Z]\z/) || nif.match?(/\A[LM]\d{7}[0-9A-Z]\z/)
     end
 
     def cif?
       # According to https://es.wikipedia.org/wiki/C%C3%B3digo_de_identificaci%C3%B3n_fiscal
       # QS get letter, ABEH get digit, other get letter or digit
-      nif.match(/\A[QS]\d{7}[A-Z]\z/) ||
-      nif.match(/\A[ABEH]\d{8}\z/) ||
-      nif.match(/\A[CDFGJNPRUVW]\d{7}[0-9A-Z]\z/)
+      nif.match?(/\A[QS]\d{7}[A-Z]\z/) ||
+      nif.match?(/\A[ABEH]\d{8}\z/) ||
+      nif.match?(/\A[CDFGJNPRUVW]\d{7}[0-9A-Z]\z/)
     end
 
     def nie?
-      nif.match(/\A[XYZ]\d{7}[A-Z]\z/)
+      nif.match?(/\A[XYZ]\d{7}[A-Z]\z/)
     end
 
     def valid_cif?
