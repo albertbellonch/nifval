@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.email       = ["albert@itnig.net"]
   s.homepage    = "https://github.com/albertbellonch/nifval"
   s.summary     = %q{Validates a Spanish NIF/CIF/NIE}
-  s.description = %q{Validates a Spanish NIF/CIF/NIE by verifying that the digit control corresponds to the number.}
+  s.description = %q{Validates a Spanish NIF/CIF/NIE by verifying that the control character corresponds to the number.}
 
   s.rubyforge_project = "nifval"
 
@@ -21,6 +21,6 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency "rspec", "~> 2.5"
   s.add_development_dependency "fuubar"
-  s.add_dependency "activemodel"
+  s.add_development_dependency "activemodel"
   s.add_dependency "i18n"
 end
