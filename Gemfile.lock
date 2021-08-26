@@ -2,7 +2,6 @@ PATH
   remote: .
   specs:
     nifval (0.2.2)
-      activemodel
       i18n
 
 GEM
@@ -37,6 +36,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activemodel
   fuubar
   nifval!
   rspec (~> 2.5)
+
+BUNDLED WITH
+   1.17.2
